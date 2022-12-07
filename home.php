@@ -28,7 +28,7 @@ $query = mysqli_query($con, "SELECT * FROM posts");
             <div class="card">
                 <div class="card-content">
                     <div class="image">
-                        <img src="./JSS.png" alt="post-image">
+                        <img src="<?php $post['image']; ?>" alt="post-image">
                     </div>
                     <div class="text-content">
                         <div class="heading">
