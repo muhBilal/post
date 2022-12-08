@@ -5,13 +5,6 @@ if (!isset($_SESSION['uname'])) {
     header('Location: index.php');
 }
 
-$per_page = 3;
-
-$posts = mysqli_query($con, "SELECT * FROM posts");
-$total_post = mysqli_num_rows($posts);
-
-$links = ceil($total_post / $per_page);
-
 ?>
 
 <!DOCTYPE html>
@@ -40,9 +33,7 @@ $links = ceil($total_post / $per_page);
     </div>
 
     <div class="links">
-        <?php for($i = 1; $i <= $links; ++$i): ?>
-            <a href="?page=<?= $i; ?>" class="link" data-page="<?= $i; ?>"><?= $i; ?></a>
-        <?php endfor; ?>
+        
     </div>
 
 
@@ -50,19 +41,11 @@ $links = ceil($total_post / $per_page);
         $('document').ready(() => {
             getPosts()
         })
-        const links = document.querySelectorAll('.link')
-        let posts = ''
-        links.forEach(link => {
-            const page = link.getAttribute('data-page')
-            link.addEventListener('click', (e) => {
-                e.preventDefault()
-                getPosts(page)
-            })
-        })
 
         function getPosts(page = 1){
             $.get('post.php?page=' + page, (data) => {
-                posts = data
+                posts = data[0]
+                console.log(data[0]);
                 $('.container').html('')
                 posts.forEach(post => {
                     const data = `<div class="card">
@@ -78,6 +61,28 @@ $links = ceil($total_post / $per_page);
 
                     $('.container').append(data)
                     history.pushState('', '', '?page=' + page)
+                })
+
+                const per_page = data[1]
+                const total_posts = data[2]
+                const total_link = Math.ceil(total_posts / per_page)
+                $('.links').html('')
+                for(let i = 1; i <= total_link; ++i){
+                    const link = document.createElement('a')
+                    link.setAttribute('data-page', i)
+                    link.setAttribute('href', `?page=${i}`)
+                    link.innerHTML = i
+                    link.classList.add('link')
+                    $('.links').append(link)
+                }
+
+                const links = document.querySelectorAll('.link')
+                links.forEach(link => {
+                    const page = link.getAttribute('data-page')
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault()
+                        getPosts(page)
+                    })
                 })
             })
         }
