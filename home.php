@@ -5,7 +5,12 @@ if (!isset($_SESSION['uname'])) {
     header('Location: index.php');
 }
 
-$query = mysqli_query($con, "SELECT * FROM posts");
+$per_page = 3;
+
+$posts = mysqli_query($con, "SELECT * FROM posts");
+$total_post = mysqli_num_rows($posts);
+
+$links = ceil($total_post / $per_page);
 
 ?>
 
@@ -31,21 +36,52 @@ $query = mysqli_query($con, "SELECT * FROM posts");
     </div>
 
     <div class="container">
-        <?php while ($post = mysqli_fetch_assoc($query)) : ?>
-            <div class="card">
-                <img src="<?= $post['image']; ?>" alt="post-image">
-                <div class="action">
-                    <div class="like">
-                        <i onclick="likePost(<?= $post['id']; ?>)" class="fa-solid fa-heart heart"></i>
-                        <p>Total like: <?= $post['likes']; ?></p>
-                    </div>
-                    <i class="fa-solid fa-comment comment"></i>
-                </div>
-            </div>
-        <?php endwhile; ?>
+        
     </div>
 
+    <div class="links">
+        <?php for($i = 1; $i <= $links; ++$i): ?>
+            <a href="?page=<?= $i; ?>" class="link" data-page="<?= $i; ?>"><?= $i; ?></a>
+        <?php endfor; ?>
+    </div>
+
+
     <script>
+        $('document').ready(() => {
+            getPosts()
+        })
+        const links = document.querySelectorAll('.link')
+        let posts = ''
+        links.forEach(link => {
+            const page = link.getAttribute('data-page')
+            link.addEventListener('click', (e) => {
+                e.preventDefault()
+                getPosts(page)
+            })
+        })
+
+        function getPosts(page = 1){
+            $.get('post.php?page=' + page, (data) => {
+                posts = data
+                $('.container').html('')
+                posts.forEach(post => {
+                    const data = `<div class="card">
+                        <img src="${post.image}" alt="post-image">
+                        <div class="action">
+                            <div class="like">
+                                <i onclick="likePost(${post.id})" class="fa-solid fa-heart heart"></i>
+                                <p>Total like: ${post.likes}</p>
+                            </div>
+                            <i class="fa-solid fa-comment comment"></i>
+                        </div>
+                    </div>`
+
+                    $('.container').append(data)
+                    history.pushState('', '', '?page=' + page)
+                })
+            })
+        }
+
         function likePost(id) {
             $.ajax({
                 url: 'like.php',
@@ -55,7 +91,9 @@ $query = mysqli_query($con, "SELECT * FROM posts");
                 },
                 success: function(response) {
                     var msg = "";
-                    location.reload()
+                    const url = window.location.search
+                    const page = url[url.length - 1]
+                    getPosts(page)
                 }
             });
         }
