@@ -14,19 +14,18 @@
 
     <div class="login">
         <div>
-            <h1>Login</h1>
+            <h1>LOGIN</h1>
             <div id="message"></div>
             <form>
                 <div class="row">
-                    <label for="email">Email</label>
-                    <input type="text" class="textbox" id="txt_uname" name="txt_uname" placeholder="Username" />
-
+                    <input type="text" class="textbox" id="txt_uname" name="txt_uname" placeholder="USERNAME" />
                 </div>
                 <div class="row">
-                    <label for="password">Password</label>
-                    <input type="password" class="textbox" id="txt_pwd" name="txt_pwd" placeholder="Password" />
+                    <input type="password" class="textbox" id="txt_pwd" name="txt_pwd" placeholder="PASSWORD" />
                 </div>
-                <input type="button" value="Submit" name="but_submit" id="but_submit" class="button" />
+                <div class="row">
+                    <input type="button" value="Login" name="but_submit" id="but_submit" class="button" />
+                </div>
             </form>
         </div>
     </div>

@@ -31,7 +31,6 @@ if (!isset($_SESSION['uname'])) {
     </div>
 
     <div class="links">
-        
     </div>
 
 
