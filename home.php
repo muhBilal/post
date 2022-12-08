@@ -8,6 +8,7 @@ if (!isset($_SESSION['uname'])) {
 $query = mysqli_query($con, "SELECT * FROM posts");
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,7 +27,7 @@ $query = mysqli_query($con, "SELECT * FROM posts");
 <body>
     <div class="header">
         <h1>Homepage</h1>
-        <button href="logout.php" class="btn-danger">Logout</button>
+        <a href="logout.php" class="btn-danger">Logout</a>
     </div>
 
     <div class="container">
@@ -43,8 +44,6 @@ $query = mysqli_query($con, "SELECT * FROM posts");
             </div>
         <?php endwhile; ?>
     </div>
-
-
 
     <script>
         function likePost(id) {
