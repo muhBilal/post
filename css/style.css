@@ -164,7 +164,7 @@ input.button:hover {
 .links {
   display: flex;
   justify-content: center;
-  margin:2rem;
+  margin: 2rem;
 }
 
 .links a {
@@ -176,13 +176,17 @@ input.button:hover {
   text-decoration: none;
 }
 
-.links a:hover{
+.links a:hover {
   background-color: #2f1aa8;
   color: white;
 }
 
 /* tablet */
 @media screen and (max-width: 900px) and (min-width: 500px) {
+  form {
+    display: block;
+  }
+
   .container {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     padding: 1rem;
@@ -196,10 +200,13 @@ input.button:hover {
     border: none;
     box-shadow: none;
     padding: 20px 0;
+    display: block;
   }
 
   .header {
     padding: 0.2rem 1rem;
+    margin: 1.5rem 0;
+    z-index: 10;
   }
 
   .container {
