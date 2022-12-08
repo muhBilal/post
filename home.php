@@ -66,12 +66,14 @@ if (!isset($_SESSION['uname'])) {
                 const total_link = Math.ceil(total_posts / per_page)
                 $('.links').html('')
                 for(let i = 1; i <= total_link; ++i){
+                    const wrapper = document.createElement('div')
                     const link = document.createElement('a')
                     link.setAttribute('data-page', i)
                     link.setAttribute('href', `?page=${i}`)
                     link.innerHTML = i
                     link.classList.add('link')
-                    $('.links').append(link)
+                    wrapper.append(link)
+                    $('.links').append(wrapper)
                 }
 
                 const links = document.querySelectorAll('.link')
