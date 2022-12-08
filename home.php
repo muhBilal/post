@@ -5,7 +5,7 @@ if (!isset($_SESSION['uname'])) {
     header('Location: index.php');
 }
 
-$per_page = 3;
+$per_page = 12;
 
 $posts = mysqli_query($con, "SELECT * FROM posts");
 $total_post = mysqli_num_rows($posts);
@@ -23,9 +23,7 @@ $links = ceil($total_post / $per_page);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Postify | Home</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
 </head>
 
@@ -36,12 +34,14 @@ $links = ceil($total_post / $per_page);
     </div>
 
     <div class="container">
-        
+
     </div>
 
     <div class="links">
-        <?php for($i = 1; $i <= $links; ++$i): ?>
-            <a href="?page=<?= $i; ?>" class="link" data-page="<?= $i; ?>"><?= $i; ?></a>
+        <?php for ($i = 1; $i <= $links; ++$i) : ?>
+            <div>
+                <a href="?page=<?= $i; ?>" class="link" data-page="<?= $i; ?>"><?= $i; ?></a>
+            </div>
         <?php endfor; ?>
     </div>
 
@@ -60,7 +60,7 @@ $links = ceil($total_post / $per_page);
             })
         })
 
-        function getPosts(page = 1){
+        function getPosts(page = 1) {
             $.get('post.php?page=' + page, (data) => {
                 posts = data
                 $('.container').html('')
