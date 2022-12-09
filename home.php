@@ -41,23 +41,26 @@ if (!isset($_SESSION['uname'])) {
 
         function getPosts(page = 1) {
             $.get('post.php?page=' + page, (data) => {
-                posts = data[0]
-                post_users = data[1]
+                let posts = data[0]
+                console.log(posts)
+                // let post_users = data[1]
                 $('.container').html('')
                 posts.forEach(post => {
-                    const data = `<div class="card">
-                        <img src="${post.image}" alt="post-image">
-                        <div class="action">
-                            <div class="like">
-                                <i onclick="likePost(${post.id})" class="fa-solid fa-heart heart"></i>
-                                <p>Total like: ${post.likes}</p>
-                            </div>
-                            <i class="fa-solid fa-comment comment"></i>
-                        </div>
-                    </div>`
+                    // for(let i = 0; i < post_users.length; ++i){
+                    //     const data = `<div class="card">
+                    //         <img src="${post.image}" alt="post-image">
+                    //         <div class="action">
+                    //             <div class="like">
+                    //                 <i onclick="likePost(${post.id})" class="fa-solid fa-heart heart ${(post_users[i].post_id == post.id) ? 'active' : post_users[i].id}"></i>
+                    //                 <p>Total like: ${post.likes}</p>
+                    //             </div>
+                    //             <i class="fa-solid fa-comment comment"></i>
+                    //         </div>
+                    //     </div>`
+                    //     $('.container').append(data)
+                    //     history.pushState('', '', '?page=' + page)
+                    // }
 
-                    $('.container').append(data)
-                    history.pushState('', '', '?page=' + page)
                 })
 
                 const per_page = data[1]
@@ -87,6 +90,7 @@ if (!isset($_SESSION['uname'])) {
         }
 
         function likePost(id) {
+            // const icon = document.querySelector(`.post-${id}`)
             $.ajax({
                 url: 'like.php',
                 type: 'post',
@@ -94,6 +98,12 @@ if (!isset($_SESSION['uname'])) {
                     id: id
                 },
                 success: function(response) {
+                    // if(response == 'like'){
+                    //     console.log('like it')
+                    //     icon.classList.add('active')
+                    // }else{
+                    //     icon.classList.remove('active')
+                    // }
                     var msg = "";
                     const url = window.location.search
                     const page = url[url.length - 1]
