@@ -42,7 +42,7 @@ if (!isset($_SESSION['uname'])) {
         function getPosts(page = 1) {
             $.get('post.php?page=' + page, (data) => {
                 posts = data[0]
-                console.log(data[0]);
+                post_users = data[1]
                 $('.container').html('')
                 posts.forEach(post => {
                     const data = `<div class="card">
