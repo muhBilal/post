@@ -134,6 +134,12 @@ input.button:hover {
 }
 
 .action .heart {
+  color: gray;
+  cursor: pointer;
+  transition: all .3s ease;
+}
+
+.action .heart:hover{
   color: red;
 }
 
@@ -143,7 +149,6 @@ input.button:hover {
   display: flex;
   align-items: center;
   gap: 0.3rem;
-
 }
 
 .action .like p {
