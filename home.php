@@ -43,24 +43,20 @@ if (!isset($_SESSION['uname'])) {
             $.get('post.php?page=' + page, (data) => {
                 let posts = data[0]
                 console.log(posts)
-                // let post_users = data[1]
                 $('.container').html('')
                 posts.forEach(post => {
-                    // for(let i = 0; i < post_users.length; ++i){
-                    //     const data = `<div class="card">
-                    //         <img src="${post.image}" alt="post-image">
-                    //         <div class="action">
-                    //             <div class="like">
-                    //                 <i onclick="likePost(${post.id})" class="fa-solid fa-heart heart ${(post_users[i].post_id == post.id) ? 'active' : post_users[i].id}"></i>
-                    //                 <p>Total like: ${post.likes}</p>
-                    //             </div>
-                    //             <i class="fa-solid fa-comment comment"></i>
-                    //         </div>
-                    //     </div>`
-                    //     $('.container').append(data)
-                    //     history.pushState('', '', '?page=' + page)
-                    // }
-
+                    const data = `<div class="card">
+                        <img src="${post.image}" alt="post-image">
+                        <div class="action">
+                            <div class="like">
+                                <i onclick="likePost(${post.id})" class="fa-solid fa-heart heart ${(post.is_like) ? 'active' : ''}"></i>
+                                <p>Total like: ${post.likes}</p>
+                            </div>
+                            <i class="fa-solid fa-comment comment"></i>
+                        </div>
+                    </div>`
+                    $('.container').append(data)
+                    history.pushState('', '', '?page=' + page)
                 })
 
                 const per_page = data[1]

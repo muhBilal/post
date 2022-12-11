@@ -143,6 +143,10 @@ input.button:hover {
   color: red;
 }
 
+.action .heart.active{
+  color: red;
+}
+
 .action .like {
   width: 100%;
   justify-items: center;

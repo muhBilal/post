@@ -15,26 +15,63 @@ $total_post = mysqli_num_rows($posts);
 
 
 $user_username = $_SESSION['uname'];
-$user_query = mysqli_query($con, "SELECT * FROM users WHERE username='$user_username'");
-$user_id = 0;
+$user_query = mysqli_query($con, "SELECT * FROM users as u LEFT JOIN post_users as pu ON pu.user_id = u.id WHERE u.username='$user_username'");
+$user_posts = [];
 while($data = mysqli_fetch_assoc($user_query)){
-    $user_id = (int)$data['id'];
+    array_push($user_posts, $data);
 }
 
 $data_posts = [];
-$data_post_users = [];
 
-$user_posts = mysqli_query($con, "SELECT * FROM post_users WHERE user_id=$user_id");
 while($post = mysqli_fetch_assoc($query)){
     array_push($data_posts, $post);
-    while($post_user = mysqli_fetch_assoc($user_posts)){
-        // array_push($data_posts, $post_user);
-        // $data_posts[]
-    }
 }
 
+$data = [];
 
+// function add_like_key($post, $user_posts){
+//     var_dump($user_posts);
+//     foreach($user_posts as $up){
+//         if($post['id'] == $up['id']){
+//             $post['is_like'] = true;
+//             return $post;
+//         }
+//     }
+// }
 
+// foreach($data_posts as $post){
+//     $post = add_like_key($post, $user_posts);
+// }
+
+// foreach($user_posts as $up){
+//     foreach($data_posts as $post){
+//         if($post['id'] == $up['post_id']){
+//             $post['is_like'] = true;
+//             array_push($data, $post);
+//         }
+//     }
+// }
+
+// foreach($data as $d){
+//     foreach($data_posts as $post){
+//         if($d['id'] == $post['id']){
+            
+//         }
+//     }
+// }
+
+$test = [
+    "post" => [
+        "id" => 1,
+        "name" => "oke"
+    ]
+];
+
+$test["post"]["value"] = "oke test";
+
+// array_replace($data_posts, $data);
+
+var_dump($data_posts);
 
 header("Content-type:application/json");
 
