@@ -41,21 +41,19 @@ if (!isset($_SESSION['uname'])) {
 
         function getPosts(page = 1) {
             $.get('post.php?page=' + page, (data) => {
-                posts = data[0]
-                console.log(data[0]);
+                let posts = data[0]
                 $('.container').html('')
                 posts.forEach(post => {
                     const data = `<div class="card">
                         <img src="${post.image}" alt="post-image">
                         <div class="action">
                             <div class="like">
-                                <i onclick="likePost(${post.id})" class="fa-solid fa-heart heart"></i>
+                                <i onclick="likePost(${post.id})" class="fa-solid fa-heart heart ${(post.is_like) ? 'active' : ''}"></i>
                                 <p>Total like: ${post.likes}</p>
                             </div>
                             <i class="fa-solid fa-comment comment"></i>
                         </div>
                     </div>`
-
                     $('.container').append(data)
                     history.pushState('', '', '?page=' + page)
                 })
