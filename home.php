@@ -42,7 +42,6 @@ if (!isset($_SESSION['uname'])) {
         function getPosts(page = 1) {
             $.get('post.php?page=' + page, (data) => {
                 let posts = data[0]
-                console.log(posts)
                 $('.container').html('')
                 posts.forEach(post => {
                     const data = `<div class="card">
@@ -86,7 +85,6 @@ if (!isset($_SESSION['uname'])) {
         }
 
         function likePost(id) {
-            // const icon = document.querySelector(`.post-${id}`)
             $.ajax({
                 url: 'like.php',
                 type: 'post',
@@ -94,12 +92,6 @@ if (!isset($_SESSION['uname'])) {
                     id: id
                 },
                 success: function(response) {
-                    // if(response == 'like'){
-                    //     console.log('like it')
-                    //     icon.classList.add('active')
-                    // }else{
-                    //     icon.classList.remove('active')
-                    // }
                     var msg = "";
                     const url = window.location.search
                     const page = url[url.length - 1]

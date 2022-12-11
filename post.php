@@ -27,51 +27,14 @@ while($post = mysqli_fetch_assoc($query)){
     array_push($data_posts, $post);
 }
 
-$data = [];
-
-// function add_like_key($post, $user_posts){
-//     var_dump($user_posts);
-//     foreach($user_posts as $up){
-//         if($post['id'] == $up['id']){
-//             $post['is_like'] = true;
-//             return $post;
-//         }
-//     }
-// }
-
-// foreach($data_posts as $post){
-//     $post = add_like_key($post, $user_posts);
-// }
-
-// foreach($user_posts as $up){
-//     foreach($data_posts as $post){
-//         if($post['id'] == $up['post_id']){
-//             $post['is_like'] = true;
-//             array_push($data, $post);
-//         }
-//     }
-// }
-
-// foreach($data as $d){
-//     foreach($data_posts as $post){
-//         if($d['id'] == $post['id']){
-            
-//         }
-//     }
-// }
-
-$test = [
-    "post" => [
-        "id" => 1,
-        "name" => "oke"
-    ]
-];
-
-$test["post"]["value"] = "oke test";
-
-// array_replace($data_posts, $data);
-
-var_dump($data_posts);
+foreach($data_posts as $index => $post){
+    foreach($user_posts as $user){
+        if($post['id'] == $user['post_id']){
+            $post['is_like'] = true;
+            $data_posts[$index] = $post;
+        } 
+    }
+}
 
 header("Content-type:application/json");
 
